@@ -8,7 +8,12 @@ group :development do
 end
 
 group :spec do
-  gem 'factory_bot'
-  gem 'rspec'
-  gem 'simplecov'
+  case ENV['RUBY_VERSION']
+  when /1\.9\.3/
+    gem 'rspec', '= 3.8.0'
+    gem 'simplecov', '= 0.17.0'
+  else
+    gem 'rspec'
+    gem 'simplecov'
+  end
 end
