@@ -2,18 +2,17 @@
 
 source 'http://rubygems.org'
 
+case ENV['RUBY_VERSION']
+when /1\.9\.3/
+  gem 'json', '= 2.2.0'
+end
+
 group :development do
   gem 'rake'
   gem 'rubocop'
 end
 
 group :spec do
-  case ENV['RUBY_VERSION']
-  when /1\.9\.3/
-    gem 'rspec', '= 3.8.0'
-    gem 'simplecov', '= 0.17.0'
-  else
-    gem 'rspec'
-    gem 'simplecov'
-  end
+  gem 'rspec'
+  gem 'simplecov'
 end
