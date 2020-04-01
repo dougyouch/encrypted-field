@@ -20,7 +20,5 @@ $LOAD_PATH.unshift(__dir__)
 require 'encrypted-field'
 
 RSpec.configure do |config|
-  config.include FactoryBot::Syntax::Methods
-
   config.after { EncryptedField::Config.instance.reset! }
 end

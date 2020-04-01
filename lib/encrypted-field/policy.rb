@@ -36,10 +36,6 @@ module EncryptedField
       str
     end
 
-    def random_key
-      create_cipher.random_key
-    end
-
     private
 
     def create_cipher

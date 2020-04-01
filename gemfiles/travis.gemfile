@@ -2,17 +2,12 @@
 
 source 'http://rubygems.org'
 
-case ENV['RUBY_VERSION']
-when /1\.9\.3/
-  gem 'json', '= 2.2.0'
-end
-
 group :development do
-  gem 'rake'
   gem 'rubocop'
 end
 
 group :spec do
+  gem 'factory_bot'
   gem 'rspec'
   gem 'simplecov'
 end

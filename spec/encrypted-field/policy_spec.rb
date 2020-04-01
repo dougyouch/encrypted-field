@@ -22,12 +22,6 @@ describe EncryptedField::Policy do
     it { expect(subject).to eq(str) }
   end
 
-  context 'random_key' do
-    subject { policy.random_key }
-
-    it { expect(subject.bytesize).to eq(32) }
-  end
-
   describe 'secret_key as a proc' do
     let(:secret_key_proc) { Proc.new { secret_key } }
     let(:policy) { EncryptedField::Policy.new(algorithm, secret_key_proc, separator) }
