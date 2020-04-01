@@ -15,6 +15,10 @@ module EncryptedField
       @options = options
     end
 
+    def prefix_with_policy_name?
+      options.fetch(:prefix_with_policy_name, true)
+    end
+
     private
 
     def create_cipher
