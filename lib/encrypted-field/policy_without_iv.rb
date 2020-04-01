@@ -9,13 +9,13 @@ module EncryptedField
     def encrypt(str)
       cipher = create_cipher.encrypt
       cipher.key = secret_key
-      Base64.strict_encode64(cipher.update(str) << cipher.final)
+      encode_payload(cipher.update(str) << cipher.final)
     end
 
     def decrypt(encrypted_str)
       cipher = create_cipher.decrypt
       cipher.key = secret_key
-      cipher.update(Base64.strict_decode64(encrypted_str)) << cipher.final
+      cipher.update(decode_payload(encrypted_str)) << cipher.final
     end
   end
 end

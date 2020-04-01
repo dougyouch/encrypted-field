@@ -21,6 +21,22 @@ module EncryptedField
 
     private
 
+    def encode_payload(str)
+      Base64.strict_encode64(str)
+    end
+
+    def decode_payload(str)
+      Base64.strict_decode64(str)
+    end
+
+    def encode_iv(str)
+      Base64.strict_encode64(str)
+    end
+
+    def decode_iv(str)
+      Base64.strict_decode64(str)
+    end
+
     def create_cipher
       OpenSSL::Cipher.new(algorithm)
     end
