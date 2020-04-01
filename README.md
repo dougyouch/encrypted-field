@@ -25,9 +25,11 @@ gem install encrypted-field
 
 ## Configuration
 
+Configuring mutliple policies. The default policy will prefix the encrypted data with the policy's name.  The fallback policy is used if the encrypted data does not start with policy's name.
 ```ruby
 EncryptedField::Config.configure do
   add_policy :default, 'aes-256-cfb', Base64.strict_decode64(ENV['ENCRYPTION_KEY'])
+  add_policy_without_iv :fallback, 'aes-256-cbc', Base64.strict_decode64(ENV['ENCRYPTION_KEY']), prefix_with_policy_name: false
 end
 ```
 
@@ -43,16 +45,16 @@ CREATE TABLE `api_creds` (
 )
 ```
 
-Update ActiveRecord model with EncryptedField and specify the password as an encrypted field.
+Add a setter/getter for working with the plain text value of the password.
 ```ruby
 class ApiCred < ActiveRecord::Base
   include EncryptedField
 
-  encrypted_field :password, :default
+  encrypted_field :password, :default, :password_encrypted, :fallback
 end
 ```
 
-## Workign With the Model
+## Working With the Model
 
 Convert plain text password to an encrypted value
 ```ruby
