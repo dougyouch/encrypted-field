@@ -11,10 +11,10 @@ describe EncryptedField::Encoder do
 
       algorithm = 'aes-256-cfb'
       secret_key = Base64.strict_decode64('ykuU5P+CDo+n8g6QmAoT4dkbnifvWl3suBvQFvWExzc=')
-      add_policy :policy1, algorithm, secret_key, '.'
+      add_policy :policy1, algorithm, secret_key, separator: '.'
 
       algorithm = 'aes-128-ctr'
-      add_policy :policy2, algorithm, OpenSSL::Cipher.new(algorithm).random_key, '|'
+      add_policy :policy2, algorithm, OpenSSL::Cipher.new(algorithm).random_key, separator: '|'
     end
   end
 

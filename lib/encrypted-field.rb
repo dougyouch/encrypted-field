@@ -3,7 +3,9 @@
 require 'encrypted-field/config'
 require 'encrypted-field/encoder'
 require 'encrypted-field/field'
-require 'encrypted-field/policy'
+require 'encrypted-field/base_policy'
+require 'encrypted-field/policy_with_iv'
+require 'encrypted-field/policy_without_iv'
 
 # EncryptedField is a library for obfuscating and simplifying the logic around encrypting/decrypting values from a DB
 module EncryptedField

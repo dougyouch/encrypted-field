@@ -18,7 +18,7 @@ describe EncryptedField do
 
       algorithm = 'aes-256-cfb'
       secret_key = Base64.strict_decode64('ykuU5P+CDo+n8g6QmAoT4dkbnifvWl3suBvQFvWExzc=')
-      add_policy :default, algorithm, secret_key, '.'
+      add_policy :default, algorithm, secret_key, separator: '.'
     end
 
     klass

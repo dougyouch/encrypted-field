@@ -23,12 +23,12 @@ module EncryptedField
       policy_separator || POLICY_DEFAULT_SEPARATOR
     end
 
-    def add_policy(policy_name, algorithm, secret_key, separator = '.')
+    def add_policy(policy_name, algorithm, secret_key, options = {})
       if invalid_policy_name?(policy_name)
         raise("policy name #{policy_name} can not include \"#{policy_separator_or_default}\"")
       end
 
-      add_custom_policy(policy_name, Policy.new(algorithm, secret_key, separator))
+      add_custom_policy(policy_name, PolicyWithIV.new(algorithm, secret_key, options))
     end
 
     def add_custom_policy(policy_name, policy)

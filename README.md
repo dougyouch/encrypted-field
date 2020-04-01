@@ -14,12 +14,12 @@ gem 'encrypted-field'
 ```
 
 And then execute:
-```shell
+```console
 bundle
 ```
 
 Or install it yourself as:
-```shell
+```console
 gem install encrypted-field
 ```
 
@@ -78,8 +78,6 @@ api_cred.password
 
 ## Custom Encrypted Field Name
 
-## ActiveRecord Field Encryption
-
 Assuming table is
 ```sql
 CREATE TABLE `api_creds` (
@@ -90,7 +88,7 @@ CREATE TABLE `api_creds` (
 )
 ```
 
-In the call encrypted_field specify the name of the DB field to store the encrypted value
+In the call to encrypted_field specify the name of the DB field to store the encrypted value
 ```ruby
 class ApiCred < ActiveRecord::Base
   include EncryptedField

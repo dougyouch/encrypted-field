@@ -13,7 +13,7 @@ module EncryptedField
     end
 
     def encrypt(str, policy_name)
-      policy_name + policy_separator + get_policy(policy_name).encrypt(str)
+      policy_name.dup << policy_separator << get_policy(policy_name).encrypt(str)
     end
 
     def decrypt(encrypted_str_with_policy_name)
