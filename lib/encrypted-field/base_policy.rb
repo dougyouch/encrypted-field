@@ -22,19 +22,35 @@ module EncryptedField
     private
 
     def encode_payload(str)
-      Base64.strict_encode64(str)
+      if options.key?(:encode_payload)
+        options[:encode_payload].call(str)
+      else
+        Base64.strict_encode64(str)
+      end
     end
 
     def decode_payload(str)
-      Base64.strict_decode64(str)
+      if options.key?(:decode_payload)
+        options[:decode_payload].call(str)
+      else
+        Base64.strict_decode64(str)
+      end
     end
 
     def encode_iv(str)
-      Base64.strict_encode64(str)
+      if options.key?(:encode_iv)
+        options[:encode_iv].call(str)
+      else
+        Base64.strict_encode64(str)
+      end
     end
 
     def decode_iv(str)
-      Base64.strict_decode64(str)
+      if options.key?(:decode_iv)
+        options[:decode_iv].call(str)
+      else
+        Base64.strict_decode64(str)
+      end
     end
 
     def create_cipher

@@ -11,7 +11,14 @@ describe EncryptedField::Encoder do
 
       algorithm = 'aes-256-cfb'
       secret_key = Base64.strict_decode64('ykuU5P+CDo+n8g6QmAoT4dkbnifvWl3suBvQFvWExzc=')
-      add_policy :policy1, algorithm, secret_key, separator: '.'
+      add_policy :policy1,
+                 algorithm,
+                 secret_key,
+                 separator: '.',
+                 encode_payload: lambda { |str| Base64.urlsafe_encode64(str) },
+                 decode_payload: lambda { |str| Base64.urlsafe_decode64(str) },
+                 encode_iv: lambda { |str| Base64.urlsafe_encode64(str) },
+                 decode_iv: lambda { |str| Base64.urlsafe_decode64(str) }
 
       algorithm = 'aes-128-ctr'
       add_policy :policy2, algorithm, OpenSSL::Cipher.new(algorithm).random_key, separator: '|'
