@@ -15,9 +15,9 @@ module EncryptedField
 
   # no-doc
   module ClassMethods
-    def encrypted_field(field_name, policy_name, encrypted_field_name = nil)
+    def encrypted_field(field_name, policy_name, encrypted_field_name = nil, fallback_policy_name = nil)
       encrypted_field_name ||= "#{field_name}_encrypted"
-      Field.new(field_name, encrypted_field_name, policy_name).add_methods(self)
+      Field.new(field_name, encrypted_field_name, policy_name, fallback_policy_name).add_methods(self)
     end
   end
 end

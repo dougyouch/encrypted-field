@@ -15,6 +15,9 @@ describe EncryptedField::Encoder do
 
       algorithm = 'aes-128-ctr'
       add_policy :policy2, algorithm, OpenSSL::Cipher.new(algorithm).random_key, separator: '|'
+
+      algorithm = 'aes-256-cbc'
+      add_policy_without_iv :policy3, algorithm, secret_key, prefix_with_policy_name: false
     end
   end
 
@@ -31,14 +34,36 @@ describe EncryptedField::Encoder do
       it { expect(subject.include?('|')).to eq(true) }
       it { expect(subject.start_with?('policy2#')).to eq(true) }
     end
+
+    describe 'without prefixing policy name' do
+      let(:policy_name) { 'policy3' }
+
+      it { expect(subject.include?('.')).to eq(false) }
+      it { expect(subject.include?('#')).to eq(false) }
+      it { expect(subject.start_with?('policy3#')).to eq(false) }
+    end
   end
 
   context 'decrypt' do
     let(:str) { 'This needs to be kept a secret' }
     let(:encrypted_str) { 'policy1#lEogYLBi7K5SGNG1qpVfAQ==.8K5YpS8D6x0sEzSIcBJQV6fkwYzFqrAVMQe6U61L' }
+    let(:fallback_policy_name) { nil }
 
-    subject { encoder.decrypt(encrypted_str) }
+    subject { encoder.decrypt(encrypted_str, fallback_policy_name) }
 
     it { expect(subject).to eq(str) }
+
+    describe 'using fallback policy name' do
+      let(:fallback_policy_name) { 'policy3' }
+
+      it { expect(subject).to eq(str) }
+
+      describe 'encrypted_str has no policy name associated to it' do
+        let(:fallback_policy_name) { 'policy1' }
+        let(:encrypted_str) { 'lEogYLBi7K5SGNG1qpVfAQ==.8K5YpS8D6x0sEzSIcBJQV6fkwYzFqrAVMQe6U61L' }
+
+        it { expect(subject).to eq(str) }
+      end
+    end
   end
 end
