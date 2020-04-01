@@ -36,9 +36,26 @@ describe EncryptedField::Config do
     let(:policy_name) { :default }
     let(:algorithm) { 'aes-256-cfb' }
     let(:secret_key) { OpenSSL::Cipher.new(algorithm).random_key }
-    let(:separator) { '.' }
+    let(:options) { {separator: '.'} }
 
-    subject { config.add_policy(policy_name, algorithm, secret_key, separator) }
+    subject { config.add_policy(policy_name, algorithm, secret_key, options) }
+
+    it { expect { subject }.to_not raise_exception }
+
+    describe 'policy_name contains policy_separator' do
+      let(:policy_name) { 'my' + config.policy_separator_or_default + 'policy' }
+
+      it { expect { subject }.to raise_error(RuntimeError) }
+    end
+  end
+
+  context 'add_policy_without_iv' do
+    let(:policy_name) { :default }
+    let(:algorithm) { 'aes-256-cbc' }
+    let(:secret_key) { OpenSSL::Cipher.new(algorithm).random_key }
+    let(:options) { {} }
+
+    subject { config.add_policy_without_iv(policy_name, algorithm, secret_key, options) }
 
     it { expect { subject }.to_not raise_exception }
 

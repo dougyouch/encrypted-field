@@ -3,7 +3,6 @@
 module EncryptedField
   # EncryptedField::Encoder prepends the policy name to the encrypted string
   class Encoder
-
     class << self
       attr_writer :encoder
 

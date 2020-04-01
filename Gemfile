@@ -3,8 +3,8 @@
 source 'http://rubygems.org'
 
 group :development do
-  gem 'rubocop'
   gem 'rake'
+  gem 'rubocop'
 end
 
 group :spec do

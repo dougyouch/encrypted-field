@@ -24,14 +24,15 @@ module EncryptedField
     end
 
     def add_policy(policy_name, algorithm, secret_key, options = {})
-      if invalid_policy_name?(policy_name)
-        raise("policy name #{policy_name} can not include \"#{policy_separator_or_default}\"")
-      end
-
       add_custom_policy(policy_name, PolicyWithIV.new(algorithm, secret_key, options))
     end
 
+    def add_policy_without_iv(policy_name, algorithm, secret_key, options = {})
+      add_custom_policy(policy_name, PolicyWithoutIV.new(algorithm, secret_key, options))
+    end
+
     def add_custom_policy(policy_name, policy)
+      valid_policy_name!(policy_name)
       policies[policy_name.to_s] = policy
     end
 
@@ -44,8 +45,10 @@ module EncryptedField
       @policy_separator = nil
     end
 
-    def invalid_policy_name?(policy_name)
-      policy_name.to_s.include?(policy_separator_or_default)
+    def valid_policy_name!(policy_name)
+      return unless policy_name.to_s.include?(policy_separator_or_default)
+
+      raise("policy name #{policy_name} can not include \"#{policy_separator_or_default}\"")
     end
   end
 end

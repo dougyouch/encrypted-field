@@ -4,7 +4,7 @@ require 'openssl'
 require 'base64'
 
 module EncryptedField
-  # EncryptedField::PolicyWithIV all the logic required to encrypt/decrypt data using symmetric encryption.
+  # EncryptedField::PolicyWithoutIV all the logic required to encrypt/decrypt data using symmetric encryption.
   class PolicyWithoutIV < BasePolicy
     def encrypt(str)
       cipher = create_cipher.encrypt
