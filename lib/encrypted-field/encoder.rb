@@ -24,7 +24,7 @@ module EncryptedField
     def decrypt(encrypted_str_with_policy_name, fallback_policy_name = nil)
       policy_name, encrypted_str = encrypted_str_with_policy_name.split(policy_separator, 2)
       policy_name =
-        if has_policy?(policy_name) || fallback_policy_name.nil?
+        if policy?(policy_name) || fallback_policy_name.nil?
           policy_name
         else
           encrypted_str = encrypted_str_with_policy_name
@@ -48,8 +48,8 @@ module EncryptedField
       config.policies[policy_name] || raise("missing policy #{policy_name}")
     end
 
-    def has_policy?(policy_name)
-      config.policies.has_key?(policy_name)
+    def policy?(policy_name)
+      config.policies.key?(policy_name)
     end
   end
 end

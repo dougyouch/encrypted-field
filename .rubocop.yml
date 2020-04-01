@@ -6,9 +6,16 @@ Style/HashTransformValues:
   Enabled: true
 Style/ExpandPathArguments:
   Enabled: false
+Style/SafeNavigation:
+  Enabled: false
 Naming/FileName:
   Enabled: false
-Metrics/LineLength:
+Layout/HeredocIndentation:
+  Enabled: false
+Naming/AccessorMethodName:
+  Exclude:
+    - 'lib/encrypted-field/config.rb'
+Layout/LineLength:
   Max: 120
 Metrics/ModuleLength:
   Max: 120
