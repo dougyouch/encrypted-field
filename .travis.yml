@@ -5,7 +5,6 @@ rvm:
   - 2.6.5
   - 2.1.9
   - 1.9.3
-gemfile: gemfiles/travis.gemfile
 language: ruby
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
