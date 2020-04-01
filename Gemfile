@@ -7,7 +7,6 @@ group :development do
 end
 
 group :spec do
-  gem 'factory_bot'
   gem 'rspec'
   gem 'simplecov'
 end
