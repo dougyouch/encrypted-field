@@ -1,0 +1,3 @@
+* Add support for configurable encoders at the field level.
+  - Fix issues with policy name collisions
+  - Especially if working with multiple DBs
