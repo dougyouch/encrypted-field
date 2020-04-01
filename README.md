@@ -1,3 +1,7 @@
+[![Build Status](https://travis-ci.com/dougyouch/encrypted-field.svg?branch=master)](https://travis-ci.com/dougyouch/encrypted-field)
+[![Maintainability](https://api.codeclimate.com/v1/badges/a11c2a2109f99622d677/maintainability)](https://codeclimate.com/github/dougyouch/encrypted-field/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/a11c2a2109f99622d677/test_coverage)](https://codeclimate.com/github/dougyouch/encrypted-field/test_coverage)
+
 # encrypted-field
 
 Simple way to encrypt/decrypt database fields.
