@@ -26,10 +26,22 @@ gem install encrypted-field
 ## Configuration
 
 Configuring mutliple policies. The default policy will prefix the encrypted data with the policy's name.  The fallback policy is used if the encrypted data does not start with policy's name.
+
+Policies use Base64.strict when encoding binary data.  As you see below you can change this behavior.
 ```ruby
 EncryptedField::Config.configure do
-  add_policy :default, 'aes-256-cfb', Base64.strict_decode64(ENV['ENCRYPTION_KEY'])
-  add_policy_without_iv :fallback, 'aes-256-cbc', Base64.strict_decode64(ENV['ENCRYPTION_KEY']), prefix_with_policy_name: false
+  add_policy :default,
+             'aes-256-cfb',
+             Base64.strict_decode64(ENV['ENCRYPTION_KEY']),
+             encode_iv: lambda { |str| Base64.urlsafe_encode64(str) },
+             decode_iv: lambda { |str| Base64.urlsafe_decode64(str) }
+
+  add_policy_without_iv :fallback,
+                        'aes-256-cbc',
+                        Base64.strict_decode64(ENV['ENCRYPTION_KEY']),
+                        prefix_with_policy_name: false,
+                        encode_payload: lambda { |str| Base64.urlsafe_encode64(str) },
+                        decode_payload: lambda { |str| Base64.urlsafe_decode64(str) }
 end
 ```
 
